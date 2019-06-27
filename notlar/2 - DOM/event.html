@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <ul class="list-group deneme" > 
+            <li class="list-group-item">Cras justo odio
+            <a class="tıkla" href=""#>tıkla</a></li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
+    </body>
+    <script>
+    const btn = document.querySelector(".tıkla");
+
+    btn.addEventListener("click",tikla);
+
+    function tikla(e){
+        console.log(e)
+        console.log("tıklandı");
+        e.preventDefault();
+
+    }
+    </script>
+</html>
