@@ -1,0 +1,27 @@
+<script>
+//ES5
+let list = {
+    category : "phone",
+    names : ["vestel","Samsung","iPhone"],
+    read : function(){
+        var self = this;
+        this.names.map(function(name){
+            console.log(`Category ${self.category} and ${name}`);
+        });
+    }
+};
+
+list.read();
+
+//ES6
+let list2 = {
+    category : "phone",
+    names : ["vestel","Samsung","iPhone"],
+    read : function(){
+        this.names.map((name) => {
+            console.log(`Category ${this.category} and ${name}`);
+        });
+    }
+};
+list2.read();
+</script>

@@ -1,0 +1,20 @@
+<script>
+
+
+var welcome = function(a,b){
+    console.log(`Welcome ${this.name}. Are you interesting in ${a} or ${b}?`);
+
+}
+
+var yigit = {
+    name : "Yiğit"
+};
+
+welcome.call(yigit,"python", "asp");
+welcome.apply(yigit, ["python", "asp"]);
+welcomeYigit = welcome.bind(yigit);
+
+welcomeYigit("python", "ada");
+
+
+</script>

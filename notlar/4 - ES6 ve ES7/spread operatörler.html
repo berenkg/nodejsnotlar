@@ -1,0 +1,24 @@
+<script>
+
+
+function getTotal(a,b,c){
+    let toplam = 0;
+    for(let i =0; i<arguments.length; i++)
+    {
+        console.log(i);
+        toplam +=  arguments[i];
+    }
+    return toplam;
+}
+let dizi = [10,20,30];
+let dizi2 = [40,50,60];
+//ES5
+console.log(getTotal.apply(null,dizi)); // foksitona direkt olarak dizi gönderemediğimiz için apply ile gönderdik. apply ilk olarak bir nesne istemektedir, nesnemiz olmadığı için o kısmı null olarak bıraktık.
+
+//ES6
+
+dizi.push(...dizi2);
+console.log(dizi)
+console.log("--");
+console.log(getTotal(...dizi));
+</script>

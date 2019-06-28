@@ -121,3 +121,80 @@ const btn = document.querySelector(".tıkla");
 
 </script>
 ```
+
+# Evet Bubling Olayı
+
+```html
+<ul class="list-group deneme" > 
+  <li class="list-group-item2">Cras justo odio
+  <a class="tıkla" href=""#>tıkla</a></li>
+  <li class="list-group-item">Dapibus ac facilisis in</li>
+  <li class="list-group-item">Morbi leo risus</li>
+  <li class="list-group-item">Porta ac consectetur ac</li>
+  <li class="list-group-item">Vestibulum at eros</li>
+</ul>
+
+<script>
+
+const btn = document.querySelector(".tıkla");
+
+    const a = document.querySelector("a");
+    const li = document.querySelector(".list-group-item2");
+    const ul = document.querySelector("ul");
+
+    a.addEventListener("click", function(e){
+      console.log("a");
+      e.stopPropagation();// içten dışa geçişi engeller.
+    });
+    a.addEventListener("click", function(e){
+      console.log("a");
+      e.stopPropagation();
+    })
+    a.addEventListener("click", function(e){
+      console.log("a");
+      e.stopPropagation();
+    })
+
+    function tikla(e){
+        console.log(e)
+        console.log("tıklandı");
+        e.preventDefault(); // sayfanın yenilenmesini engeller
+
+    }
+
+</script>
+```
+
+# Local Storage ve Session Stroge
+```html
+<ul class="list-group deneme" > 
+  <li class="list-group-item2">Cras justo odio
+  <a class="tıkla" href=""#>tıkla</a></li>
+  <li class="list-group-item">Dapibus ac facilisis in</li>
+  <li class="list-group-item">Morbi leo risus</li>
+  <li class="list-group-item">Porta ac consectetur ac</li>
+  <li class="list-group-item">Vestibulum at eros</li>
+</ul>
+
+<script>
+
+console.log(localStorage);
+
+const name = localStorage.setItem("first name","Beren");
+
+console.log(localStorage);
+///
+
+const city = sessionStorage.setItem("city","bursa");
+console.log("sessionStorage");
+
+//Eleman atamak için yukarıdaki yöntemler kullanılır ve local storage tarayıcıda sürekli kalırken session storage tarayıcı kapandığında silinir.
+
+val1 = localStorage.getItem("first name");
+
+localStroge.removeItem("first name");
+
+
+
+</script>
+```

@@ -1,0 +1,23 @@
+<script>
+
+
+topla = function(a,b,c,callback){
+    let arr = [];
+    for (let i = 0; i <3; i++){
+        arr[i] = callback(arguments[i]*2);
+    }
+    return arr;
+}
+
+function ekle(a)
+{
+    return a + 2;
+}
+
+console.log(topla(5,10,15,ekle));
+
+console.log(topla(5,10,15,function(a){
+    return a +15;
+}));
+
+</script>

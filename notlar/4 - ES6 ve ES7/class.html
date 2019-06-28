@@ -1,0 +1,33 @@
+<script>
+
+//ES5
+var PersonES5 = function(name, job){
+    this.name = name;
+    this.job = job;
+
+}
+PersonES5.prototype.print = function(){
+    return  (this.job);
+}
+
+var yigit = new PersonES5("yigit","Student");
+
+console.log(yigit.print());
+
+//ES6
+
+class PersonES6{
+    constructor(name,job){
+        this.name = name;
+        this.job = job;
+    }
+
+    print(){
+        return this.job;
+    }
+}
+
+let emel = new PersonES6("emel","engineer");
+console.log(emel.print());
+
+</script>
