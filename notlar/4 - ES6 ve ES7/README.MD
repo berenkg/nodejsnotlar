@@ -11,7 +11,7 @@ welcomeES5();
 
 //ES6
 let welcomeES6 = () => {
-    console.log("Hello from ES6);
+    console.log("Hello from ES6");
 }
 welcomeES6();
 
@@ -147,5 +147,81 @@ class PersonES6{
 let emel = new PersonES6("emel","engineer");
 console.log(emel.print());
 
+
+```
+
+# Static Metotlar
+Classlar içerisindeki fonksiyonları kullanırken bazı metotlar için sürekli bir örnekleme işlemi yapmamıza gerek yoktur. Örnek olarak Math.hypot() metodu gibi, bu metodu kullanırken bir örnekleme yapılmamış direkt olarak class adı ile kullanılmıştır. Bu tür metotlara statik metot denir. Bunlara veri tabanı bağlantısıda örnek olarak verilebilir.
+
+```js
+
+class Point{
+	constructor(x,y){
+		this.x = x;
+		this.y = y;
+	}
+
+	static distance(a,b){
+		const dx = a.x - b.x;
+		const dy = a.y - b.y;
+		return Math.hypot(dx,dy);
+
+	}
+}
+
+const d1 = new Point(10,10);
+const d2 = new Point(20,20);
+
+console.log(Point.distance(d1,d2));
+
+```
+# SubClass ve extends
+İlk olarak bunu ES5 ile nasıl yapacağımıza bakalım
+```js
+
+function PersonES5(isim, soyisim){
+	this.isim = isim;
+	this.soyisim = soyisim;
+
+}
+
+PersonES5.prototype.Merhaba = function(){
+	return `Hello I'm ${this.isim} ${this.soyisim}`;
+}
+
+function CustomerES5(isim, soyisim, phone){
+	PersonES5.call(this,isim,soyisim);
+	this.phone = phone;	
+}
+
+CustomerES5.prototype = Object.create(PersonES5.protype);
+
+var customer = new CustomerES5("beren","görün","5555");
+
+```
+Şimdi bu işi ES6 ile nasıl yapıldığına bakalım
+```js
+
+class PersoneES6{
+	constructor(isim, soyisim){
+		this.isim = isim;
+		this.soyisim = soyisim;
+	}
+
+	merhaba(){
+		return `merhaba ${this.isim} ${this.soyisim}`;
+	}
+
+}
+
+class CustomerES6 extends PersoneES6{
+	constructor(isim, soyisim, phone){
+		super(isim, soyisim);
+		this.phone = phone;
+
+	}
+}
+
+let customer = CustomerES6("beren","görün","5555");
 
 ```

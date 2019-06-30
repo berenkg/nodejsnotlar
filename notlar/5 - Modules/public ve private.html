@@ -1,0 +1,22 @@
+<script>
+
+var Module = (function(){
+
+//private
+    var sayi = 0;
+
+    let sayiDondur = function(){
+            return sayi;
+        }
+
+    return {
+        //public
+        sayiDondur
+    }
+    
+}());
+
+console.log(Module.sayiDondur());
+console.log(Module.sayi);
+
+</script>
