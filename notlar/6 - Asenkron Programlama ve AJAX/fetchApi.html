@@ -1,0 +1,17 @@
+<script>
+
+function getJson(){
+
+    fetch("data.json")
+    .then(response = (data) =>{
+    return data.json();
+    })
+    .then(data = (json) =>{
+        console.log((json));
+    })
+    .catch(error=> {
+        console.log("hata");
+    });
+}
+getJson();
+</script>

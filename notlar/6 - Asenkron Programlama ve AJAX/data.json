@@ -1,0 +1,13 @@
+[
+    {
+        "id":"1",
+        "isim":"beren",
+        "meslek":"mühednis"
+    },
+    {
+        "id":"2",
+        "isim":"kuday",
+        "meslek":"öğrenci"
+    }
+
+]

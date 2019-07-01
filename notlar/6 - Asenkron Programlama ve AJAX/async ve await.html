@@ -1,0 +1,40 @@
+<script>
+
+
+function getCategory()
+{
+    return new Promise(resolve => {
+        setTimeout(() =>{
+            resolve("phone");
+        },500);
+    });
+}
+
+function getProfucts(category){
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log(`5 tane urun  ${category}`);
+        },500);
+    })
+}
+
+//getCategory()
+//.then(getProfucts);
+
+
+async function getProduct(){
+
+    try{
+        let category = await getCategory(); // işlem bekleyecek tamamlandıktan sonra aşağıdaki komut çalıştırılacak
+        let result = await getProfucts(category);
+        console.log(result);
+    }catch(error){
+        console.log("hata");
+    }
+  
+
+
+}
+
+getProduct();
+</script>

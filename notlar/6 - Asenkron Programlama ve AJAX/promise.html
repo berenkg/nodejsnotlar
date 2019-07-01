@@ -1,0 +1,38 @@
+<script>
+
+var urunler = [
+    {id:1, urun:"top"},
+    {id:2, urun:"forma"},
+    {id:3, urun:"krampon"}
+]
+
+function urunEkle(urun){
+
+    return new Promise(function(resolve, reject){
+
+        setTimeout(()=>{
+            urunler.push(urun);
+            let added = true;
+            if(added){
+                resolve("eklendi");
+            }
+            else
+            {
+                reject("hata");
+            }
+        });
+
+    });
+}
+
+function urunGoster(mesaj){
+    console.log(urunler);
+    console.log(mesaj);
+}
+
+urunEkle({id:4, urun:"çorap"})
+.then(urunGoster)
+.catch(function(err){
+    console.log(err);
+});
+</script>
