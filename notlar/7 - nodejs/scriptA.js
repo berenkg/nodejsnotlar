@@ -5,7 +5,7 @@ var age = 30;
 //public members
 var name = "kuday";
 
-var log = function(name){
+var log = function (name) {
     console.log(name);
 }
 
