@@ -1,0 +1,1 @@
+Bu kısımda bir proje var ve proje içerisinde açıklamalar mevcuttur.
