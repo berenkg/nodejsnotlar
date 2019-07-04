@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect("http://localhost:3000/");
+        const socket2 = io.connect("http://localhost:3000/yeni");
+
+        //sunucuya mesaj göndermek için emit metodunu kullanıyoruz.
+
+        socket.emit("selamVer", {isim:"beren"});
+        socket.on("isim degistir", () => {
+            let isim = document.getElementById("isim");
+            isim.innerText = "Beren";
+        });
+
+        socket2.emit("connection");
+
+        socket2.on("deneme", (d)=>{
+            console.log(d);
+        })
+    </script>
+</head>
+
+<body>
+
+    <p id="isim">Deneme</p>
+</body>
+
+</html>
