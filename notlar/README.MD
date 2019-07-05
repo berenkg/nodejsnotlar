@@ -129,3 +129,172 @@ Node.js , her bir .js uzantili dosyayi bir modül olarak kabul eder  dedik,  Her
 Node.js içinde kullanacağimiz, başkalari tarafindan yazılan, paketleri / modülleri uygulamamıza kolayca dahil etmemize yarayan, yada kendi yazdığımız modülleri, paketleyip paylaşmak icin kullanabilecegimiz bir paket yoneticisi npm. PHP icin composer, .NET dünyasindaki nuget  ile kıyaslayabiliriz.
 npm in ayrıca bir otomasyon aracı olarak da kullanıldığını da belirtelim. Yapacağımız bazı işlemler için bir Task Runner olarak da kullanabilmekteyiz.
 packages.json dosyası ise uygulamamızın genel ahvalini içinde tutan bir özet dosyası diyebiliriz. Ayrıca, uygulamamızınz içinde kullanacağımız node.js modüllerinin de bir listesini tutup uygulamamızın bağımlılıklarını da yönetme imkanı vermekte.
+
+# Frameworkler
+Node.js'in bir framework olmadığını hatırlayatarak popüler frameworklerden biri olan Express Web Framework iile başlayalım.
+
+## Express Web Framework
+xpress framework ün çalışma mantığına bakacak olursak, aşağıdaki parçalardan oluşan minimal bir yapıyı görebiliriz;
+1. express nesnesi.
+2. Routing – Rota yönetimi
+3. Middleware
+
+### Express Nesnesi – Instance of Express Class
+Express i npm i ile indirip uygulamamıza dahil ediş sürecinden sonra, freamework ün örneğini tutan bir sınıf oluşturup bu sınıfı kullanarak, başta ayarlar ve rota tanımlarımız olmak üzere hemen hemen her şeyi bu oluşturduğumuz express nesnesi üzerinden yapmaktayız. Diğer framework lere göre daha sade ve kolay bir yapı sağlayan bu yöntem, uygulamanın modüler bir şekilde de tasarlanmasına imkan vermekte.
+
+```js
+import express from "express"; // express paketini dahil ediyoruz
+const app = new express(); // express nesnemiz.
+```
+
+#### .get() ve .set()
+Uygulama genelinde bazi konfigürasyonlari yapabilmemize yada sornada bu ayarlarla ulaşabilmemize imkan vermekteler. Bu konfigürasyonların bir kısmı express içinde dahili olarak gelen ayarlar.
+```js
+app.set('env', 'development'); // express geliştirme ortamında çalışacak
+app.get('env'); // "development"
+app.set("json spaces", "5") // Json formatını ayarladık.
+```
+
+#### .use() Metodu
+Express için de önemli bir yer tutan .use() metodu, genel olarak uygulamamızın tamamı yada bir kısmı için çalıştırmak istediğimiz middleware ler için kullanmaktayız. middleware kavramını hiç duymadıysanız, genel bir tanım olarak şöyle ifade edebiliriz “bir middleware için, uygulamamıza gelen (http) isteklerinden önce çalışan fonksiyon” tanımını kullanabiliriz. Yazının devamında bu kısıma tekrar döneceğiz. Ayrıca video da da daha rahat anlaşılır bir şekilde pratikdeki karşılıklarına bakmaya çalıştım.
+
+Örneğin uygulamamızda “/admin” yoluna gelen her istekden önce bazı işlemler yapmak istersek şöyle bir middleware tanımlayabiliriz.
+```js
+app.use('/admin', function(req, res, next) {
+  // GET 'http://www.example.com/admin/new'
+  console.log(req.originalUrl); // '/admin/new'
+  console.log(req.baseUrl); // '/admin'
+  console.log(req.path); // '/new'
+  next();
+});
+```
+## Express Framework ve Routing / Restfull Rotalar
+Express routing alt yapısı için 2 farklı yöntem sunmakta.
+
+1. Kısa yol metodları
+2. Router sınıfı
+### Kısa yol metodları
+1. .get()
+2. .post()
+3. .delete()
+4. .put()
+
+Sadece  .get() metodu için bir hatırlatma yapmak lazım, yazının başında bu metodu farklı bir şekilde de kullanmıştık.(.set() ve .get() ) Burada bu metoda tek bir parametre vererek kullanırsak, routing metodu olarak değil konfigürasyon metodu olarak çalışmakta. Eğer 1 den fazla para metre alırsa bir routing metodu olarak çalışacak.
+
+```js
+app.get('/urunler', function (req, res) {
+  res.send('GET request alındı');
+});
+// /urunler yoluna yapılan GET Requestleri/İstekleri karşılar.
+
+app.post('/urunler', function (req, res) {
+  res.send('POST request alındı');
+});
+// /urunler yoluna yapılan POST Requestleri/İstekleri karşılar.
+
+app.all('/api/*', function (req,res) {
+    // /api ve tum alt varyasyonlari icin gecerli rotamiz
+    // /api/users yada /api/users/:userId gibi
+});
+
+```
+
+### .route()
+```js
+app.route('/urunler')
+.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+})
+.get(function(req, res, next) {
+  res.json(...);
+})
+.post(function(req, res, next) {
+  // maybe add a new event...
+});
+```
+.route() metodu ile belirlediğimiz  yol için tek bir seferde tüm http verb lerini birbirine  “Chain / ekleme” yaparak rotalarımızı tanımlayabilmekteyiz.
+
+## Router Nesnesi
+
+Yukarıda, kısa yol metdolarına değindik, bu kısa yol metodlarına bir alternatif olarak express bize bir de Router Nesnesini sunmakta. Router nesnesi daha düzenli bir yazım şekline sahip ve uygulamamızı daha modüler bir halde yazmamıza yardımcı olmakta.  Router nesnesi ile, aslında uygulamızı kendi için küçük parçalara ayrımış oluyoruz diyebiliriz. Kullanımı şu şekilde olacaktır;
+
+Öncelikle express in sağladığı Router sınıfının bir örneği oluşuturarak başlıyoruz.
+```js
+var router = express.Router([options]);
+
+router.get('/mezun', function(req, res, next) {
+});
+router.get('/aktif', function(req, res, next) {
+}); 
+app.use('/ogrenciler', router);
+
+```
+Burada dikkat etmemiz gereken en önemli nokta; app.use(‘/ogrenciler’, router)  tanımı ile, uygulamamızın “/ogrenciler” yolu için yapılacak bütün istekleri artık bir alt rota katmanına alıyoruz
+
+## URL parametreleri
+```js
+// urunler?siralama=artan&depo=2
+app.get('/urunler/', function(req, res) {
+    var siralama = req.query.siralama
+    var depo = req.query.depo
+    console.log("sira : ",siralama, " , depo : " , depo);
+    res.send(urunler);
+});
+
+// urunler/123
+app.get('/urunler/:urunId', function(req, res) {
+    var urunId = req.params.urunId
+    console.log("urunId: ",urunId);
+    res.send(urun);
+});
+```
+
+## BODY/ Govde ile gelen veriler
+```js
+app.post('/profile',  function (req, res, next) {
+  console.log(req.body);
+  res.json(req.body);
+});
+```
+## Middlewares
+Node.js ve Express açısından baktığımızda, middleware kavramı için “gelen her türlü isteğe , isteğin gerçekten işleneceği kısımdan önce erişimi olan ve istek üzerinde filitrelemeler, kontroller vb işlemleri yapmamıza imkan veren ön-fonksiyonlar” diyebiliriz.
+
+Aslında yukarıda, rotalarımız için kullandığımız bütün fonksiyonlar “teknik olarak” bir middleware diyebiliriz. Pratikde ise “gelen isteğin işlenme noktası olanlara değil, filitreleme, istek üzerinde modifikasyonlar veya ön kontroller yapan fonksiyonlara ” Middleware diyoruz.
+
+Yani teknik olarak bir midleware ile, bir rotaya geçtiğimiz fonksiyon aslında aynı şey sadece kullanım amaçları yüzünden farklı isimlendirilerek, sanal bir izolasyon yada gruplama yapmış olma durumu var. Şimdi şu örneğe bakalım;
+```js
+app.use('/urunler/*',function (req,res,next) {
+    // /urunler ve bu url in tum varyasyonlarina yapilan istekler
+    //icin gecerli middleware
+    if(req.query.access_key){
+        next()
+    }else {
+        // istegi geri cevir
+        return res.status(401).send('access key saglanmadi!')
+    }
+})
+app.get('/urunler', function (req, res) {
+    res.status(200).send({urun:db.Urun.findAll()})
+})
+app.get('/urunler/:id', function (req, res) {
+    res.status(200).send({urun:db.Urun.find(req.params.id)})
+})
+```
+Yukarıdaki, örneğe bakacak olursak, ilk tanımlamamız (“/urunler/*”) bir middleware ve yaptığı iş belirli şartlara uyan tüm istekler için (/urunler yoluna ve tüm alt varyasyonlarına) bir ön kontrol yapmakta. Bizim örneğimizde gelen istek eğer bir access_key değeri taşımıyorsa isteği sonlandırmakla görevli.
+
+### Not:
+Middleware ya da routing işlemlerinde url'nin tanımlandığı yerlere bazı özel işlemler girebiliriz.
+1. ? = (zorunlu olmayan) ==> meh(me)?t ===> burada `me` harfleri olsun olmasın url kabul edilecektir.
+2. * = (herhangi bir ifade olabilir) => mehmet* ==> mehmet2 ile mehmet3 ifadeleri aynı fonksiyonu tetikleyecektir.
+3. Aşağıdaki örnek koda bakın
+```js
+app.get("/users/:id/:postId", (req, res) => {
+    res.send(req.params);
+    // Bu ifade ile obje halinde id ve postId ifadelerini elde edebiliriz.
+    // /users/16/4444
+
+});
+// eğerki :postId? şeklinde yazsaydık postId kısmının zorunlu olmadığını söylemiş olurdur. 
+// yani /users/16 ifadeside çalışırdı.
+```
