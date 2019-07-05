@@ -1,0 +1,119 @@
+doctype html
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Free Bootstrap Admin Template : Binary Admin
+    // BOOTSTRAP STYLES
+    link(href='assets/css/bootstrap.css', rel='stylesheet')
+    // FONTAWESOME STYLES
+    link(href='assets/css/font-awesome.css', rel='stylesheet')
+    // MORRIS CHART STYLES
+    link(href='assets/js/morris/morris-0.4.3.min.css', rel='stylesheet')
+    // CUSTOM STYLES
+    link(href='assets/css/custom.css', rel='stylesheet')
+    // GOOGLE FONTS
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
+
+    block css
+  body
+    #wrapper
+      nav.navbar.navbar-default.navbar-cls-top(role='navigation', style='margin-bottom: 0')
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.sidebar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='index.html') Binary admin
+        div(style='color: white;\
+        padding: 15px 50px 5px 50px;\
+        float: right;\
+        font-size: 16px;')
+          | Last access : 30 May 2014   
+          a.btn.btn-danger.square-btn-adjust(href='#') Logout
+      // /. NAV TOP
+      nav.navbar-default.navbar-side(role='navigation')
+        .sidebar-collapse
+          ul#main-menu.nav
+            li.text-center
+              img.user-image.img-responsive(src='assets/img/find_user.png')
+            li
+              a.active-menu(href='index.html')
+                i.fa.fa-dashboard.fa-3x
+                |  Dashboard
+            li
+              a(href='ui.html')
+                i.fa.fa-desktop.fa-3x
+                |  UI Elements
+            li
+              a(href='tab-panel.html')
+                i.fa.fa-qrcode.fa-3x
+                |  Tabs & Panels
+            li
+              a(href='chart.html')
+                i.fa.fa-bar-chart-o.fa-3x
+                |  Morris Charts
+            li
+              a(href='table.html')
+                i.fa.fa-table.fa-3x
+                |  Table Examples
+            li
+              a(href='form.html')
+                i.fa.fa-edit.fa-3x
+                |  Forms
+            li
+              a(href='#')
+                i.fa.fa-sitemap.fa-3x
+                |  Multi-Level Dropdown
+                span.fa.arrow
+              ul.nav.nav-second-level
+                li
+                  a(href='#') Second Level Link
+                li
+                  a(href='#') Second Level Link
+                li
+                  a(href='#')
+                    | Second Level Link
+                    span.fa.arrow
+                  ul.nav.nav-third-level
+                    li
+                      a(href='#') Third Level Link
+                    li
+                      a(href='#') Third Level Link
+                    li
+                      a(href='#') Third Level Link
+            li
+              a(href='blank.html')
+                i.fa.fa-square-o.fa-3x
+                |  Blank Page
+      // /. NAV SIDE
+      #page-wrapper
+        #page-inner
+          .row
+            .col-md-12
+              h2 #{baslik} 
+              h5 #{aciklama} 
+              hr
+              
+            block icerik
+         
+         
+         
+          // /. ROW
+          // /. PAGE INNER
+          // /. PAGE WRAPPER
+          // /. WRAPPER
+          // SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME
+          // JQUERY SCRIPTS
+          script(src='assets/js/jquery-1.10.2.js')
+          // BOOTSTRAP SCRIPTS
+          script(src='assets/js/bootstrap.min.js')
+          // METISMENU SCRIPTS
+          script(src='assets/js/jquery.metisMenu.js')
+          // MORRIS CHART SCRIPTS
+          script(src='assets/js/morris/raphael-2.1.0.min.js')
+          script(src='assets/js/morris/morris.js')
+          // CUSTOM SCRIPTS
+          script(src='assets/js/custom.js')
+          block js
